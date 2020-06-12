@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ly_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".views.AddGuestbookActivity">
+
+
+    <EditText
+        android:id="@+id/edt_guestbook_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Guestbook Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edt_guestbook_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Guestbook Description"
+        android:inputType="textMultiLine"
+        android:lineSpacingMultiplier="3"
+        android:maxLines="10"
+        android:minLines="3"
+        android:nestedScrollingEnabled="false" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addGuestbook"
+        android:text="@string/btn_save" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="cancel"
+        android:text="@string/btn_cancel" />
+
+</LinearLayout>
