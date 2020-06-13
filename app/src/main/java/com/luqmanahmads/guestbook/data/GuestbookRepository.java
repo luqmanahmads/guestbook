@@ -1,68 +1,57 @@
 package com.luqmanahmads.guestbook.data;
 
+import android.app.Application;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class GuestbookRepository {
 
-    private static GuestbookRepository instance;
+    private GuestbookDao guestbookDao;
+    private LiveData<List<Guestbook>> guestbookList;
 
-    // Pretend as data source
-    private List<Guestbook> guestbookList = new ArrayList<Guestbook>(getDefaultGuestbookList());
-
-    public static GuestbookRepository getInstance(){
-
-        if(instance == null){
-            instance = new GuestbookRepository();
-        }
-        return instance;
+    public GuestbookRepository(Application application){
+        GuestbookRoomDatabase db = GuestbookRoomDatabase.getDatabase(application);
+        guestbookDao = db.guestbookDao();
+        guestbookList = guestbookDao.getGuestbookList();
     }
 
-    public MutableLiveData<List<Guestbook>> getGuestbookList(){
-        MutableLiveData<List<Guestbook>> data = new MutableLiveData<List<Guestbook>>();
-        data.setValue(this.guestbookList);
-        return data;
+    public LiveData<List<Guestbook>> getGuestbookList(){
+        return guestbookList;
     }
 
-    public void addGuestbook(Guestbook guestbook){
-        this.guestbookList.add(guestbook);
+    public LiveData<Guestbook> getGuestbook(long guestbookId){
+        return guestbookDao.getGuestbook(guestbookId);
     }
 
-
-    private List<Guestbook> getDefaultGuestbookList(){
-        List<Guestbook> gbList = new ArrayList<Guestbook>();
-
-        Guestbook gb = new Guestbook(
-                Calendar.getInstance().getTime().getTime(),
-                "Happy Family Hospital Guestbook",
-                "This is the default guestbook for logging the guest name of our famous Happy Hospital Family",
-                Calendar.getInstance().getTime(),
-                Calendar.getInstance().getTime());
-
-        gbList.add(gb);
-
-        gb = new Guestbook(
-                Calendar.getInstance().getTime().getTime()+1,
-                "Delisioso Restaurant Guestbook",
-                "This is the default guestbook for Delisioso Restaurant",
-                Calendar.getInstance().getTime(),
-                Calendar.getInstance().getTime());
-
-        gbList.add(gb);
-
-        return gbList;
-    }
-
-    public void updateGuestbook(long guestbookId, String guestbookName, String guestbookDescription) {
-        for(Guestbook gb : guestbookList){
-            if(gb.getGuestbookId() == guestbookId){
-                gb.setGuestbookName(guestbookName);
-                gb.setGuestbookDescription(guestbookDescription);
-                break;
+    public void addGuestbook(final Guestbook guestbook){
+        GuestbookRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                guestbookDao.insertGuestbook(guestbook);
             }
-        }
+        });
+    }
+
+    public void updateGuestbook(final Guestbook guestbook) {
+        GuestbookRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                guestbookDao.updateGuestbook(guestbook);
+            }
+        });
+    }
+
+    public void updateGuestbook(final long guestbookId, final String guestbookName, final String guestbookDescription) {
+        GuestbookRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                guestbookDao.updateGuestbook(guestbookId, guestbookName, guestbookDescription, Calendar.getInstance().getTimeInMillis());
+            }
+        });
     }
 }
