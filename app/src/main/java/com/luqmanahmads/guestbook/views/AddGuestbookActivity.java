@@ -20,6 +20,7 @@ public class AddGuestbookActivity extends AppCompatActivity {
     private EditText edtGuestbookDescription;
     private Button btnAdd;
     private Button btnCancel;
+    private Button btnDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,16 @@ public class AddGuestbookActivity extends AppCompatActivity {
         edtGuestbookName = findViewById(R.id.edt_guestbook_name);
         edtGuestbookDescription = findViewById(R.id.edt_guestbook_description);
 
+        btnAdd = findViewById(R.id.btn_add);
+        btnDelete = findViewById(R.id.btn_delete);
+        btnCancel = findViewById(R.id.btn_cancel);
+
         if(guestbook.getGuestbookId()>0){
             edtGuestbookName.setText(guestbook.getGuestbookName());
             edtGuestbookDescription.setText(guestbook.getGuestbookDescription());
+        } else{
+            btnDelete.setVisibility(View.GONE);
         }
-
-        btnAdd = findViewById(R.id.btn_add);
-        btnCancel = findViewById(R.id.btn_cancel);
     }
 
     public void addGuestbook(View view){
@@ -55,7 +59,16 @@ public class AddGuestbookActivity extends AppCompatActivity {
         finish();
     }
 
+    public void deleteGuestbook(View view){
+        Intent result = new Intent();
+        result.putExtra("guestbookId", guestbook.getGuestbookId());
+        setResult(2 , result);
+        finish();
+    }
+
     public void cancel(View view){
+        Intent result = new Intent();
+        setResult(Activity.RESULT_CANCELED , result);
         finish();
     }
 }
