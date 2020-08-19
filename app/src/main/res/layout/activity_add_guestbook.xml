@@ -38,6 +38,13 @@
         android:text="@string/btn_save" />
 
     <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="deleteGuestbook"
+        android:text="@string/btn_delete" />
+
+    <Button
         android:id="@+id/btn_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

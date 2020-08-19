@@ -15,6 +15,7 @@ import com.luqmanahmads.guestbook.R;
 import com.luqmanahmads.guestbook.data.Guestbook;
 
 public class AddGuestbookActivity extends AppCompatActivity {
+
     private Guestbook guestbook;
     private EditText edtGuestbookName;
     private EditText edtGuestbookDescription;
@@ -33,7 +34,7 @@ public class AddGuestbookActivity extends AppCompatActivity {
         guestbook.setGuestbookName(intent.getStringExtra("guestbookName"));
         guestbook.setGuestbookDescription(intent.getStringExtra("guestbookDescription"));
 
-        Toast.makeText(this, "id : "+guestbook.getGuestbookId() , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "guestbook id : "+guestbook.getGuestbookId() , Toast.LENGTH_SHORT).show();
 
         edtGuestbookName = findViewById(R.id.edt_guestbook_name);
         edtGuestbookDescription = findViewById(R.id.edt_guestbook_description);

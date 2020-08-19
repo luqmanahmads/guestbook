@@ -3,4 +3,7 @@
     <string name="btn_add_guestbook">Add Guestbook</string>
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="edt_guestbook_entries">Lihat Entry...</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_add_guestbook_entry">Add Guestbook Entry</string>
 </resources>

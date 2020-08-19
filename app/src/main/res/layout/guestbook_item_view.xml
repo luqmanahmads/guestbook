@@ -3,36 +3,63 @@
     android:id="@+id/ly_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="15dp"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingTop="15dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txv_guestbook_name"
+    <LinearLayout
+        android:id="@+id/ly_guestbook"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="Guestbook Name"
-        android:textAllCaps="false"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="15dp">
 
-    <TextView
-        android:id="@+id/txv_guestbook_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="Guestbook Description"
-        android:textSize="16dp" />
+        <TextView
+            android:id="@+id/txv_label_guestbook_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Guestbook Name"
+            android:textAllCaps="false"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txv_modified_date"
+        <TextView
+            android:id="@+id/txv_guestbook_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Guestbook Description"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/txv_modified_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="Modified Date"
+            android:textSize="12dp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_entries"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:text="Modified Date"
-        android:textSize="12dp"
-        android:textStyle="italic" />
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <TextView
+            android:id="@+id/txv_entries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edt_guestbook_entries"
+            android:textColor="#2196F3" />
+    </LinearLayout>
+
 </LinearLayout>

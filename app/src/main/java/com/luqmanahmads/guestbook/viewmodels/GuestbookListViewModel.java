@@ -1,6 +1,7 @@
 package com.luqmanahmads.guestbook.viewmodels;
 
 import android.app.Application;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.luqmanahmads.guestbook.data.Guestbook;
@@ -37,4 +38,9 @@ public class GuestbookListViewModel extends AndroidViewModel {
     public void updateGuestbook(long guestbookId, String guestbookName, String guestbookDescription) {
         repoGuestbook.updateGuestbook(guestbookId, guestbookName, guestbookDescription);
     }
+
+    public void deleteGuestbook(final long guestbookId){
+        repoGuestbook.deleteGuestbook(guestbookId);
+    }
+
 }

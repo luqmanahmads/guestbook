@@ -20,18 +20,19 @@ public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecy
 
     private List<Guestbook> guestbookList = new ArrayList<Guestbook>();
     private RecyclerViewItemClickListener rcvItemListener;
+    private RecyclerViewItemClickListener entryListener;
 
-
-    public GuestbookRecyclerAdapter(List<Guestbook> guestbookList, RecyclerViewItemClickListener rcvItemListener){
+    public GuestbookRecyclerAdapter(List<Guestbook> guestbookList, RecyclerViewItemClickListener rcvItemListener, RecyclerViewItemClickListener entryListener){
         this.guestbookList = guestbookList;
         this.rcvItemListener = rcvItemListener;
+        this.entryListener = entryListener;
     }
 
     @NonNull
     @Override
     public GuestbookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.guestbook_item_view, parent, false);
-        GuestbookViewHolder vh = new GuestbookViewHolder(view, this.rcvItemListener);
+        GuestbookViewHolder vh = new GuestbookViewHolder(view, this.rcvItemListener, this.entryListener);
         return vh;
     }
 
@@ -46,7 +47,9 @@ public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecy
 
     @Override
     public int getItemCount() {
-        return guestbookList.size();
+        if (guestbookList != null)
+            return guestbookList.size();
+        else return 0;
     }
 
     public List<Guestbook> getDataSet(){
@@ -62,31 +65,47 @@ public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecy
         this.guestbookList = guestbookList;
     }
 
-    public static class GuestbookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class GuestbookViewHolder extends RecyclerView.ViewHolder {
 
         public Guestbook guestbook = null;
         public TextView txvGuestbookName;
         public TextView txvGuestbookDescription;
         public TextView txvModifiedDate;
         public LinearLayout lyContainer;
+        public LinearLayout lyGuestbook;
+        public LinearLayout lyEnries;
         public RecyclerViewItemClickListener rcvItemListener;
+        public RecyclerViewItemClickListener entryListener;
 
-        public GuestbookViewHolder(@NonNull View itemView, RecyclerViewItemClickListener rcvItemListener) {
+        public GuestbookViewHolder(@NonNull View itemView, final RecyclerViewItemClickListener rcvItemListener, final RecyclerViewItemClickListener entryListener) {
             super(itemView);
 
+            lyGuestbook = itemView.findViewById(R.id.ly_guestbook);
+            lyEnries = itemView.findViewById(R.id.ly_entries);
             lyContainer = itemView.findViewById(R.id.ly_container);
-            txvGuestbookName = itemView.findViewById(R.id.txv_guestbook_name);
+            txvGuestbookName = itemView.findViewById(R.id.txv_label_guestbook_name);
             txvGuestbookDescription = itemView.findViewById(R.id.txv_guestbook_description);
             txvModifiedDate = itemView.findViewById(R.id.txv_modified_date);
 
-            itemView.setOnClickListener(this);
+            lyGuestbook.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    rcvItemListener.onClick(lyGuestbook, guestbook);
+                }
+
+            });
+
+            lyEnries.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    entryListener.onClick(view, guestbook);
+                }
+
+            });
 
             this.rcvItemListener = rcvItemListener;
-        }
-
-        @Override
-        public void onClick(View view) {
-            rcvItemListener.onClick(view, guestbook);
         }
     }
 }

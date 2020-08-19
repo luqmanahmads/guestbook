@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rcvGuestbook;
     private RecyclerViewItemClickListener rcvItemListener;
+    private RecyclerViewItemClickListener entryListener;
     private GuestbookRecyclerAdapter adapterGuestbook;
     private Button btnAddGuestbook;
     private GuestbookListViewModel vmGuestbookList;
@@ -51,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
                     vmGuestbookList.updateGuestbook(guestbookId, guestbookName, guestbookDescription);
                 }
 
+            } else if(result.getResultCode() == 2){
+
+                Intent intent = result.getData();
+                long guestbookId = intent.getLongExtra("guestbookId", 0);
+                vmGuestbookList.deleteGuestbook(guestbookId);
             }
         }
     });
@@ -84,6 +90,19 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        /** Set onClick RecyclerView Item **/
+        entryListener = new RecyclerViewItemClickListener(){
+
+            @Override
+            public void onClick(View view, Guestbook gb) {
+
+                Intent intent = new Intent(view.getContext(), GuestbookEntryActivity.class);
+                intent.putExtra("guestbookId", Long.valueOf(gb.getGuestbookId()));
+
+                mStartForResult.launch(intent);
+            }
+        };
+
         /** Initialize RecyclerView : set Adapter and LayoutManager **/
         initGuestbookRecyclerView();
 
@@ -91,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         vmGuestbookList.getGuestbookList().observe(this, new Observer<List<Guestbook>>() {
             @Override
             public void onChanged(List<Guestbook> guestbooks) {
-                adapterGuestbook.setDataSet(vmGuestbookList.getGuestbookList().getValue());
+                adapterGuestbook.setDataSet(guestbooks);
                 adapterGuestbook.notifyDataSetChanged();
             }
         });
@@ -104,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initGuestbookRecyclerView(){
-        adapterGuestbook = new GuestbookRecyclerAdapter(vmGuestbookList.getGuestbookList().getValue(), rcvItemListener);
+        adapterGuestbook = new GuestbookRecyclerAdapter(vmGuestbookList.getGuestbookList().getValue(), rcvItemListener, entryListener);
         RecyclerView.LayoutManager linierLayoutManager = new LinearLayoutManager(this);
         rcvGuestbook.setLayoutManager(linierLayoutManager);
         rcvGuestbook.setAdapter(adapterGuestbook);

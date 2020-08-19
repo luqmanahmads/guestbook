@@ -27,6 +27,9 @@ public interface GuestbookDao {
     @Query("DELETE FROM guestbook")
     void deleteAll();
 
+    @Query("DELETE FROM guestbook WHERE guestbook_id = :guestbookId")
+    void deleteGuestbook(long guestbookId);
+
     @Query("SELECT * FROM guestbook WHERE guestbook_id = :guestbookId")
     LiveData<Guestbook> getGuestbook(long guestbookId);
 

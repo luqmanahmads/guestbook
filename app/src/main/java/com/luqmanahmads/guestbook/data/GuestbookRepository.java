@@ -54,4 +54,13 @@ public class GuestbookRepository {
             }
         });
     }
+
+    public void deleteGuestbook(final long guestbookId){
+        GuestbookRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                guestbookDao.deleteGuestbook(guestbookId);
+            }
+        });
+    }
 }
