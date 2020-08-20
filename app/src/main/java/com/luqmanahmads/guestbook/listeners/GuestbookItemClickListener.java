@@ -4,6 +4,6 @@ import android.view.View;
 
 import com.luqmanahmads.guestbook.data.Guestbook;
 
-public interface RecyclerViewItemClickListener {
+public interface GuestbookItemClickListener {
     public void onClick(View view, Guestbook gb);
 }

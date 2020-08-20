@@ -22,6 +22,7 @@ import com.luqmanahmads.guestbook.R;
 import com.luqmanahmads.guestbook.adapters.GuestbookEntryRecyclerAdapter;
 import com.luqmanahmads.guestbook.data.Guestbook;
 import com.luqmanahmads.guestbook.data.GuestbookEntry;
+import com.luqmanahmads.guestbook.listeners.EntryItemClickListener;
 import com.luqmanahmads.guestbook.viewmodels.GuestbookEntryViewModel;
 import com.luqmanahmads.guestbook.viewmodels.GuestbookListViewModel;
 
@@ -36,6 +37,7 @@ public class GuestbookEntryActivity extends AppCompatActivity {
     private GuestbookEntryRecyclerAdapter adapterGuestbookEntry;
     private RecyclerView rcvGuestbookEntry;
     private Long guestbookId;
+    private EntryItemClickListener entryItemClickListener;
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -48,19 +50,17 @@ public class GuestbookEntryActivity extends AppCompatActivity {
                 String guestName = intent.getStringExtra("guestName");
                 String guestMessage = intent.getStringExtra("guestMessage");
 
-                Log.d("guestbook id", String.valueOf(guestbookId));
-                Log.d("guestbook entry id", String.valueOf(guestbookEntryId));
-
                 if(guestbookEntryId == 0){
-                    Log.d("test", "before add guestbook entry");
                     vmGuestbookEntry.addGuestbookEntry(guestbookId, "", guestName, guestMessage);
-                    Log.d("test", "after add guestbook entry");
                 } else {
-
+                    vmGuestbookEntry.updateGuestbookEntry(guestbookEntryId, guestbookId, "", guestName, guestMessage);
                 }
 
             } else if(result.getResultCode() == 2){
+                Intent intent = result.getData();
 
+                long guestbookEntryId = intent.getLongExtra("guestbookEntryId", 0);
+                vmGuestbookEntry.deleteGuestbookEntry(guestbookEntryId);
             }
         }
     });
@@ -85,6 +85,19 @@ public class GuestbookEntryActivity extends AppCompatActivity {
         rcvGuestbookEntry = findViewById(R.id.rcv_guestbook_entry);
         rcvGuestbookEntry.setNestedScrollingEnabled(false);
 
+        /** Listener Item Click Recycler View **/
+        entryItemClickListener = new EntryItemClickListener() {
+            @Override
+            public void onClick(View view, GuestbookEntry ge) {
+                Intent intent = new Intent(view.getContext(), AddGuestbookEntryActivity.class);
+                intent.putExtra("guestbookId", guestbookId);
+                intent.putExtra("guestbookEntryId", ge.getGuestbookEntryId());
+                intent.putExtra("guestName", ge.getGuestName());
+                intent.putExtra("guestMessage", ge.getGuestMessage());
+                mStartForResult.launch(intent);
+            }
+        };
+
         /** Init GuestbookEntry recycler view **/
         initGuestbookEntryRecyclerView();
 
@@ -94,7 +107,6 @@ public class GuestbookEntryActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<GuestbookEntry> guestbookEntryList) {
                 adapterGuestbookEntry.setDataSet(guestbookEntryList);
-                adapterGuestbookEntry.notifyDataSetChanged();
             }
         });
 
@@ -108,7 +120,7 @@ public class GuestbookEntryActivity extends AppCompatActivity {
     }
 
     private void initGuestbookEntryRecyclerView(){
-        adapterGuestbookEntry = new GuestbookEntryRecyclerAdapter(vmGuestbookEntry.getLdGuestbookEntryList().getValue());
+        adapterGuestbookEntry = new GuestbookEntryRecyclerAdapter(vmGuestbookEntry.getLdGuestbookEntryList().getValue(), entryItemClickListener);
         RecyclerView.LayoutManager linierLayoutManager = new LinearLayoutManager(this);
         rcvGuestbookEntry.setLayoutManager(linierLayoutManager);
         rcvGuestbookEntry.setAdapter(adapterGuestbookEntry);

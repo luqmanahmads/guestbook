@@ -15,23 +15,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.luqmanahmads.guestbook.R;
 import com.luqmanahmads.guestbook.adapters.GuestbookRecyclerAdapter;
 import com.luqmanahmads.guestbook.data.Guestbook;
-import com.luqmanahmads.guestbook.listeners.RecyclerViewItemClickListener;
+import com.luqmanahmads.guestbook.listeners.GuestbookItemClickListener;
 import com.luqmanahmads.guestbook.viewmodels.GuestbookListViewModel;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rcvGuestbook;
-    private RecyclerViewItemClickListener rcvItemListener;
-    private RecyclerViewItemClickListener entryListener;
+    private GuestbookItemClickListener rcvItemListener;
+    private GuestbookItemClickListener entryListener;
     private GuestbookRecyclerAdapter adapterGuestbook;
     private Button btnAddGuestbook;
     private GuestbookListViewModel vmGuestbookList;
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         rcvGuestbook.setNestedScrollingEnabled(false);
 
         /** Set onClick RecylcerView Item **/
-        rcvItemListener = new RecyclerViewItemClickListener() {
+        rcvItemListener = new GuestbookItemClickListener() {
             @Override
             public void onClick(View view, Guestbook guestbook) {
 
@@ -91,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         /** Set onClick RecyclerView Item **/
-        entryListener = new RecyclerViewItemClickListener(){
+        entryListener = new GuestbookItemClickListener(){
 
             @Override
             public void onClick(View view, Guestbook gb) {
@@ -111,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Guestbook> guestbooks) {
                 adapterGuestbook.setDataSet(guestbooks);
-                adapterGuestbook.notifyDataSetChanged();
             }
         });
     }

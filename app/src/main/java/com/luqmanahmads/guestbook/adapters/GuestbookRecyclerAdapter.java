@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.luqmanahmads.guestbook.R;
 import com.luqmanahmads.guestbook.data.Guestbook;
-import com.luqmanahmads.guestbook.listeners.RecyclerViewItemClickListener;
+import com.luqmanahmads.guestbook.listeners.GuestbookItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecyclerAdapter.GuestbookViewHolder> {
 
     private List<Guestbook> guestbookList = new ArrayList<Guestbook>();
-    private RecyclerViewItemClickListener rcvItemListener;
-    private RecyclerViewItemClickListener entryListener;
+    private GuestbookItemClickListener rcvItemListener;
+    private GuestbookItemClickListener entryListener;
 
-    public GuestbookRecyclerAdapter(List<Guestbook> guestbookList, RecyclerViewItemClickListener rcvItemListener, RecyclerViewItemClickListener entryListener){
+    public GuestbookRecyclerAdapter(List<Guestbook> guestbookList, GuestbookItemClickListener rcvItemListener, GuestbookItemClickListener entryListener){
         this.guestbookList = guestbookList;
         this.rcvItemListener = rcvItemListener;
         this.entryListener = entryListener;
@@ -58,6 +58,7 @@ public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecy
 
     public void setDataSet(List<Guestbook> guestbookList){
         this.guestbookList = guestbookList;
+        this.notifyDataSetChanged();
     }
 
 
@@ -74,10 +75,10 @@ public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecy
         public LinearLayout lyContainer;
         public LinearLayout lyGuestbook;
         public LinearLayout lyEnries;
-        public RecyclerViewItemClickListener rcvItemListener;
-        public RecyclerViewItemClickListener entryListener;
+        public GuestbookItemClickListener rcvItemListener;
+        public GuestbookItemClickListener entryListener;
 
-        public GuestbookViewHolder(@NonNull View itemView, final RecyclerViewItemClickListener rcvItemListener, final RecyclerViewItemClickListener entryListener) {
+        public GuestbookViewHolder(@NonNull View itemView, final GuestbookItemClickListener rcvItemListener, final GuestbookItemClickListener entryListener) {
             super(itemView);
 
             lyGuestbook = itemView.findViewById(R.id.ly_guestbook);

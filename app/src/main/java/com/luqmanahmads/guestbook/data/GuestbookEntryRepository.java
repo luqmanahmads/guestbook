@@ -37,5 +37,22 @@ public class GuestbookEntryRepository {
         });
     }
 
+    public void deleteGuestbookEntry(final long guestbookEntryId){
+        GuestbookRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                guestbookEntryDao.deleteGuestbookEntry(guestbookEntryId);
+            }
+        });
+    }
+
+    public void updateGuestbookEntry(final long guestbookEntryId, final String guestName, final String guestMessage, final String guestPhotoPath){
+        GuestbookRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                guestbookEntryDao.updateGuestbookEntry(guestbookEntryId, guestName, guestMessage, guestPhotoPath, Calendar.getInstance().getTimeInMillis());
+            }
+        });
+    }
 
 }

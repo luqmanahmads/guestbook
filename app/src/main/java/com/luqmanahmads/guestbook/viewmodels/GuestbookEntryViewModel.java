@@ -11,6 +11,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 public class GuestbookEntryViewModel extends AndroidViewModel {
 
@@ -42,5 +43,13 @@ public class GuestbookEntryViewModel extends AndroidViewModel {
                 Calendar.getInstance().getTime(),
                 Calendar.getInstance().getTime());
         this.repoGuestbookEntry.addGuestbookEntry(guestbookEntry);
+    }
+
+    public void updateGuestbookEntry(long guestbookEntryId, long guestbookId, String guestPhotoPath, String guestName, String guestMessage){
+        this.repoGuestbookEntry.updateGuestbookEntry(guestbookEntryId, guestName, guestMessage, guestPhotoPath);
+    }
+
+    public void deleteGuestbookEntry(long guestbookEntryId){
+        this.repoGuestbookEntry.deleteGuestbookEntry(guestbookEntryId);
     }
 }
