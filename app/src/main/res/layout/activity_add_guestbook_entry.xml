@@ -6,17 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".views.AddGuestbookEntryActivity">
 
+    <ImageView
+        android:id="@+id/imv_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="50dp"
+        android:onClick="getPhotoFromCamera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <EditText
         android:id="@+id/edt_guest_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imv_photo" />
 
     <EditText
         android:id="@+id/edt_guest_message"

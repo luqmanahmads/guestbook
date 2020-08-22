@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,11 +50,12 @@ public class GuestbookEntryActivity extends AppCompatActivity {
                 long guestbookId = intent.getLongExtra("guestbookId", 0);
                 String guestName = intent.getStringExtra("guestName");
                 String guestMessage = intent.getStringExtra("guestMessage");
+                String guestPhotoPath = intent.getStringExtra("guestPhotoPath");
 
                 if(guestbookEntryId == 0){
-                    vmGuestbookEntry.addGuestbookEntry(guestbookId, "", guestName, guestMessage);
+                    vmGuestbookEntry.addGuestbookEntry(guestbookId, guestPhotoPath, guestName, guestMessage);
                 } else {
-                    vmGuestbookEntry.updateGuestbookEntry(guestbookEntryId, guestbookId, "", guestName, guestMessage);
+                    vmGuestbookEntry.updateGuestbookEntry(guestbookEntryId, guestbookId, guestPhotoPath, guestName, guestMessage);
                 }
 
             } else if(result.getResultCode() == 2){
@@ -94,6 +96,7 @@ public class GuestbookEntryActivity extends AppCompatActivity {
                 intent.putExtra("guestbookEntryId", ge.getGuestbookEntryId());
                 intent.putExtra("guestName", ge.getGuestName());
                 intent.putExtra("guestMessage", ge.getGuestMessage());
+                intent.putExtra("guestPhotoPath", ge.getGuestPhotoPath());
                 mStartForResult.launch(intent);
             }
         };
