@@ -1,16 +1,27 @@
 package com.luqmanahmads.guestbook.adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.luqmanahmads.guestbook.R;
 import com.luqmanahmads.guestbook.data.GuestbookEntry;
 import com.luqmanahmads.guestbook.listeners.EntryItemClickListener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +55,15 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
         holder.txvGuestMessage.setText(guestbookEntry.getGuestMessage());
         holder.txvCreateDate.setText(guestbookEntry.getCreateDate().toString());
         holder.txvModifiedDate.setText(guestbookEntry.getModifiedDate().toString());
+
+        File imageFile = new File(holder.imvGuestPhoto.getContext().getFilesDir(), guestbookEntry.getGuestPhotoPath());
+        Uri imageUri = Uri.fromFile(imageFile);
+
+        Glide.with(holder.imvGuestPhoto.getContext())
+                .load(imageUri)
+                .placeholder(new ColorDrawable(Color.BLACK))
+                .error(R.drawable.ic_launcher_background)
+                .into(holder.imvGuestPhoto);
     }
 
     @Override
@@ -70,6 +90,7 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
         public TextView txvGuestMessage;
         public TextView txvCreateDate;
         public TextView txvModifiedDate;
+        public ImageView imvGuestPhoto;
 
 
         public GuestbookEntryViewHolder(@NonNull View itemView, final EntryItemClickListener entryItemClickListener) {
@@ -80,6 +101,7 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
             txvGuestMessage = itemView.findViewById(R.id.txv_guest_message);
             txvCreateDate = itemView.findViewById(R.id.txv_create_date);
             txvModifiedDate = itemView.findViewById(R.id.txv_modified_date);
+            imvGuestPhoto = itemView.findViewById(R.id.imv_guest_photo);
 
             lyContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,5 +111,4 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
             });
         }
     }
-
 }
