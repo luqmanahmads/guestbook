@@ -8,4 +8,41 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Card Header 1 -->
+    <style name="CardHeaderText1" parent="@style/TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/neosanspro_bold</item>
+        <item name="android:textSize">12pt</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <!-- Card Content 1 -->
+    <style name="CardContentText1" parent="@style/TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">10.5pt</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <!-- Card Content 2 -->
+    <style name="CardContentText2" parent="@style/TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">7.5pt</item>
+        <item name="android:textColor">#808080</item>
+    </style>
+
+    <!-- Clickable Text -->
+    <style name="ClickableText" parent="@style/TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">7.5pt</item>
+        <item name="android:textColor">#ff1a45</item>
+    </style>
+
+    <!-- Button Primary -->
+    <style name="ButtonFilled" parent="@style/Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/button_main_selector</item>
+        <item name="android:fontFamily">@font/neosanspro_bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
 </resources>

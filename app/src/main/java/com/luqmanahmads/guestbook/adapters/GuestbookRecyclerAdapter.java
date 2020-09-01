@@ -10,6 +10,7 @@ import com.luqmanahmads.guestbook.R;
 import com.luqmanahmads.guestbook.data.Guestbook;
 import com.luqmanahmads.guestbook.listeners.GuestbookItemClickListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecy
     private List<Guestbook> guestbookList = new ArrayList<Guestbook>();
     private GuestbookItemClickListener rcvItemListener;
     private GuestbookItemClickListener entryListener;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm | dd MMM YYYY");
 
     public GuestbookRecyclerAdapter(List<Guestbook> guestbookList, GuestbookItemClickListener rcvItemListener, GuestbookItemClickListener entryListener){
         this.guestbookList = guestbookList;
@@ -42,7 +44,7 @@ public class GuestbookRecyclerAdapter extends RecyclerView.Adapter<GuestbookRecy
         holder.guestbook = gb;
         holder.txvGuestbookName.setText(gb.getGuestbookName());
         holder.txvGuestbookDescription.setText(gb.getGuestbookDescription());
-        holder.txvModifiedDate.setText("Last modified : "+gb.getModifiedDate().toString());
+        holder.txvModifiedDate.setText(simpleDateFormat.format(gb.getModifiedDate()));
     }
 
     @Override

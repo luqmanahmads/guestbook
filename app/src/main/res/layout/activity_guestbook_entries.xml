@@ -37,6 +37,7 @@
             </LinearLayout>
 
             <Button
+                style="@style/ButtonFilled"
                 android:id="@+id/btn_add_guestbook_entry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

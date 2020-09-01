@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">guestbook</string>
+    <string name="app_name">Guestbook</string>
     <string name="btn_add_guestbook">Add Guestbook</string>
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>

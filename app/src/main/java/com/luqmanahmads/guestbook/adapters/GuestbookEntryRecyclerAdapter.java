@@ -22,6 +22,7 @@ import com.luqmanahmads.guestbook.listeners.EntryItemClickListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
 
     private List<GuestbookEntry> guestbookEntryList = new ArrayList<GuestbookEntry>();
     private EntryItemClickListener entryItemClickListener;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm | dd MMM YYYY");
 
     public GuestbookEntryRecyclerAdapter(List<GuestbookEntry> guestbookEntryList, EntryItemClickListener entryItemClickListener){
         this.guestbookEntryList = guestbookEntryList;
@@ -53,8 +55,7 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
         holder.guestbookEntry = guestbookEntry;
         holder.txvGuestName.setText(guestbookEntry.getGuestName());
         holder.txvGuestMessage.setText(guestbookEntry.getGuestMessage());
-        holder.txvCreateDate.setText(guestbookEntry.getCreateDate().toString());
-        holder.txvModifiedDate.setText(guestbookEntry.getModifiedDate().toString());
+        holder.txvModifiedDate.setText(simpleDateFormat.format(guestbookEntry.getModifiedDate()));
 
         File imageFile = new File(holder.imvGuestPhoto.getContext().getFilesDir(), guestbookEntry.getGuestPhotoPath());
         Uri imageUri = Uri.fromFile(imageFile);
@@ -88,7 +89,6 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
         public LinearLayout lyContainer;
         public TextView txvGuestName;
         public TextView txvGuestMessage;
-        public TextView txvCreateDate;
         public TextView txvModifiedDate;
         public ImageView imvGuestPhoto;
 
@@ -99,7 +99,6 @@ public class GuestbookEntryRecyclerAdapter extends RecyclerView.Adapter<Guestboo
             lyContainer = itemView.findViewById(R.id.ly_container);
             txvGuestName = itemView.findViewById(R.id.txv_guest_name);
             txvGuestMessage = itemView.findViewById(R.id.txv_guest_message);
-            txvCreateDate = itemView.findViewById(R.id.txv_create_date);
             txvModifiedDate = itemView.findViewById(R.id.txv_modified_date);
             imvGuestPhoto = itemView.findViewById(R.id.imv_guest_photo);
 

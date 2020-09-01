@@ -76,11 +76,11 @@ public class AddGuestbookEntryActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.btn_delete_entry);
         btnCancel = findViewById(R.id.btn_cancel_entry);
         imvPhoto = findViewById(R.id.imv_photo);
-        imvPhoto.setImageBitmap(getBitmapPhoto(guestbookEntry.getGuestPhotoPath()));
 
         if(guestbookEntry.getGuestbookEntryId()>0){
             edtGuestName.setText(guestbookEntry.getGuestName());
             edtGuestMessage.setText(guestbookEntry.getGuestMessage());
+            imvPhoto.setImageBitmap(getBitmapPhoto(guestbookEntry.getGuestPhotoPath()));
         } else{
             btnDelete.setVisibility(View.GONE);
         }
